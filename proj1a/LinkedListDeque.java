@@ -4,10 +4,8 @@ public class LinkedListDeque{
 		public int item;
 		public IntNode next;
 
-		public IntNode(){
-			pre = this;
-			item = 1;
-			next = pre;
+		public IntNode(int i, IntNode n){
+			n.next.
 		}
 
 
