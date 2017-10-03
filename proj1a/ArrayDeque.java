@@ -28,12 +28,18 @@ public class ArrayDeque <T> {
 		item[nextFirst] = i;
 		size += 1;
 		nextFirst -= 1;
+		if (nextFirst == nextLast){
+			resize();
+		}
 	}
 
 	public void addLast(T i){
 		item[nextLast] = i;
 		size += 1;
 		nextFirst += 1;
+		if (nextFirst == nextLast){
+			resize();
+		}
 	}
 
 	public void printDeque(){
@@ -49,6 +55,7 @@ public class ArrayDeque <T> {
 		item[nextInQue(nextFirst,size)] = null;
 		nextFirst = nextInQue(nextFirst,size);
 		size -= 1;
+		halve();
 		return firstReturn;
 	}
 
@@ -57,8 +64,16 @@ public class ArrayDeque <T> {
 		item[preInQue(nextLast,size)] = null;
 		nextFirst = preInQue(nextLast,size);
 		size -= 1;
+		halve();
 		return lastReturn;
 	}
+
+
+
+	public T get(int index){
+		return item[index];
+	}
+
 
 
 	private int nextInQue(int i, int size){
@@ -75,9 +90,25 @@ public class ArrayDeque <T> {
 		else {return i-1;}
 	}
 
-	public T get(int index){
-		return item[index];
+	private void resize() {
+		int factor = 2;
+		T[] newItem = (T[]) new Object[size*factor];
+		System.arraycopy(item, 0, newItem, 0, size);
+		item = newItem;
 	}
+	
+	private void halve(){
+		double R = 0.25;
+		double usageRatio = size / item.length;
+		if (usageRatio < R && size > 16){
+			int factor = 2;
+			T[] newItem = (T[]) new Object[size % factor];
+			System.arraycopy(item, 0, newItem, 0, size);
+			item = newItem;
+		}
+	}
+
+
 
 
 }
