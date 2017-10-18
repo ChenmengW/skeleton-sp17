@@ -1,6 +1,7 @@
 package synthesizer;
+import java.util.Iterator;
 
-public interface BoundedQueue <T> {
+public interface BoundedQueue <T> extends Iterable<T>{
     int capacity();
     int fillCount();
     void enqueue(T x);
@@ -19,5 +20,13 @@ public interface BoundedQueue <T> {
             return true;
         }
         else { return false; }
+    }
+
+    default boolean hasNext(){
+        return fillCount() != 0;
+    }
+
+    default T next(){
+        return dequeue();
     }
 }
