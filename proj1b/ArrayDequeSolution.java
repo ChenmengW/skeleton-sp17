@@ -5,15 +5,22 @@ import java.util.LinkedList;
  * The aesthete will be especially alarmed by the fact that this
  * supposed ArrayDeque is actually using a LinkedList. SAD!
  */
-public class ArrayDequeSolution<Item> extends LinkedList<Item> {
+public class ArrayDequeSolution<Item> extends LinkedList<Item> implements Deque<Item>{
     public void printDeque() {
-        System.out.println("dummy");
+        int p = 0;
+        while(p != super.size()){
+            System.out.println(super.get(p));
+            p += 1;
+        }
     }
+    
 
+    @Override
     public Item getRecursive(int i) {
         return get(i);
     }
 
+    @Override
     public Item removeFirst() {
         try {
             return super.removeFirst();
@@ -22,6 +29,7 @@ public class ArrayDequeSolution<Item> extends LinkedList<Item> {
         }
     }
 
+    @Override
     public Item removeLast() {
         try {
             return super.removeLast();

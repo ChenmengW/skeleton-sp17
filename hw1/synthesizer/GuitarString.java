@@ -20,7 +20,10 @@ public class GuitarString {
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
         int cap = (int) Math.round(SR / frequency);
-        buffer = new ArrayRingBuffer<Integer>( cap );
+        buffer = new ArrayRingBuffer<Double>( cap );
+        while (buffer.fillCount() < buffer.capacity()){
+            buffer.enqueue(0.0);
+        }
 
         //*check if the constructor fill the queue with zeros//
     }
@@ -33,15 +36,20 @@ public class GuitarString {
         //       double r = Math.random() - 0.5;
         //
         //       Make sure that your random numbers are different from each other.
-        for (int i = 0; i < buffer.capacity() ; i++){
-            Set<Double> numbers = new HashSet<Double>();
+
+        for (int i = 0; i < buffer.fillCount() ; i++){
             buffer.dequeue();
+        }
+
+         for (int i = 0; i < buffer.capacity() ; i++){
+            Set<Double> numbers = new HashSet<Double>();
             Double x = Math.random() - 0.5;
-            while (! numbers.add(x)) {
+            /* while (! numbers.add(x)) {
                 x = Math.random() - 0.5;
             }
+            */
             buffer.enqueue(x);
-        }
+         }
     }
 
     /* Advance the simulation one time step by performing one iteration of
