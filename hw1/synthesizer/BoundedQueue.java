@@ -7,6 +7,8 @@ public interface BoundedQueue <T> extends Iterable<T>{
     void enqueue(T x);
     T dequeue();
     T peek();
+    @Override
+    Iterator<T> iterator();
 
     default boolean isEmpty(){
         if (fillCount() == 0){
@@ -20,13 +22,5 @@ public interface BoundedQueue <T> extends Iterable<T>{
             return true;
         }
         else { return false; }
-    }
-
-    default boolean hasNext(){
-        return fillCount() != 0;
-    }
-
-    default T next(){
-        return dequeue();
     }
 }

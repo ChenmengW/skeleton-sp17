@@ -10,6 +10,22 @@ public class IntListTest {
      * assertEquals knows how to handle IntLists just fine.
      */
 
+    /**
+     * Returns the reverse of the given IntList.
+     * This method is destructive. If given null
+     * as an input, returns null.
+     */
+    @Test
+    public void testreverse() {
+        IntList zero = IntList.list();
+        IntList one = IntList.list(3, 2, 1);
+        assertEquals(IntList.list(1, 2, 3), IntList.reverse(one));
+        assertEquals(IntList.reverse(null), null);
+        assertEquals(one, IntList.list(1, 2, 3));
+    }
+
+
+
     @Test
     public void testList() {
         IntList one = new IntList(1, null);
@@ -59,7 +75,7 @@ public class IntListTest {
 
     @Test
     public void testCatenate() {
-        IntList A = IntList.list(1,2,3);
+        IntList A = IntList.list(1, 2 , 3);
         IntList B = IntList.list(4, 5, 6);
         IntList exp = IntList.list(1, 2, 3, 4, 5, 6);
         assertEquals(exp, IntList.catenate(A, B));
