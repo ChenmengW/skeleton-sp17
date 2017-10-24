@@ -18,9 +18,9 @@ public class Table {
         InsertIntoTable.conduct(name, row);
     }
 
-    public void printTable (String name) {
+    public void printTable () {
         /*write the table*/
-        PrintTable.conduct(name);
+        PrintTable.conduct();
     }
 
     public void selectTable (String name) {

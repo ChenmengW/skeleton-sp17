@@ -12,7 +12,7 @@ public class Database {
     }
 
     public void createTable (String name, Row[] rows){
-        Create.conduct(name, rows);
+        CreateTable.conduct(name, rows);
         /*Table newTable = new Table (name, rows);
         add to the list*/
     }
