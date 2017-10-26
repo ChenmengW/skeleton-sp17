@@ -1,8 +1,8 @@
 package db;
 
 public class StoreTable implements Command{
-    @Override
-    public String conduct(){
+
+    public static String conduct(String name){
         return "";
     };
 }

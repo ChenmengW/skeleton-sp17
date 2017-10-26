@@ -1,21 +1,21 @@
 package db;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Table {
-    String name;
-    Row[] rows;
+    private String name;
+    private List <Column> columns = new ArrayList<Column>();
 
-    public Table (String name){
+
+    public Table (String name, List columns){
         this.name = name;
+        this.columns = columns;
     }
 
-    public Table (String name, Row[] rows){
-        this.name = name;
-        this.rows = rows;
-    }
-
-    public void insertIntoTable (String name, Row row) {
+    public void insertIntoTable (String name, Column column) {
         /*write the table*/
-        InsertIntoTable.conduct(name, row);
+        InsertIntoTable.conduct(name, column);
     }
 
     public void printTable () {

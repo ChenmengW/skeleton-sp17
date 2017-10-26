@@ -1,5 +1,6 @@
 package db;
-
+import java.util.List;
+import java.util.ArrayList;
 public class Database {
     Table[] tables;
 
@@ -8,11 +9,11 @@ public class Database {
     }
 
     public String transact(String query) {
-        return "YOUR CODE HERE";
+        return Parse.eval(query);
     }
 
-    public void createTable (String name, Row[] rows){
-        CreateTable.conduct(name, rows);
+    public void createTable (String name, List columns){
+        CreateTable.conduct(name, columns);
         /*Table newTable = new Table (name, rows);
         add to the list*/
     }
