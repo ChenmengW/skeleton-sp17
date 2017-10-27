@@ -3,7 +3,10 @@ import java.util.List;
 import java.util.ArrayList;
 public class CreateTable implements Command{
 
-    public static String conduct(String name, List columns){
-        return "";
+    public static Table conduct(String name, List columns){
+
+        Table newTable = new Table(name, columns);
+
+        return newTable;
     };
 }

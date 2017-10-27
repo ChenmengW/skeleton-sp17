@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Table {
-    private String name;
+    String name;
     private HashMap <String, List> chm = new HashMap<String, List>();
 
     private static HashMap<String, List> makeHashMap (List<Column> columns){

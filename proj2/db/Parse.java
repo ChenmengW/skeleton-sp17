@@ -3,8 +3,11 @@ package db;
 import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Parse {
+    Database currentDatabase;
     // Various common constructs, simplifies parsing.
     private static final String REST  = "\\s*(.*)\\s*",
                                 COMMA = "\\s*,\\s*",
@@ -31,16 +34,20 @@ public class Parse {
                                  INSERT_CLS  = Pattern.compile("(\\S+)\\s+values\\s+(.+?" +
                                                "\\s*(?:,\\s*.+?\\s*)*)");
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         if (args.length != 1) {
             System.err.println("Expected a single query argument");
             return;
         }
 
         eval(args[0]);
+    }*/
+
+    public Parse(Database db){
+        currentDatabase = db;
     }
 
-    static String eval(String query) {
+    String eval(String query) {
         Matcher m;
         if ((m = CREATE_CMD.matcher(query)).matches()) {
              createTable(m.group(1));
@@ -63,7 +70,7 @@ public class Parse {
         return "";
     }
 
-    private static String createTable(String expr) {
+    private String createTable(String expr) {
         Matcher m;
         if ((m = CREATE_NEW.matcher(expr)).matches()) {
             createNewTable(m.group(1), m.group(2).split(COMMA));
@@ -76,14 +83,21 @@ public class Parse {
         return "";
     }
 
-    private static String createNewTable(String name, String[] cols) {
+    private String createNewTable(String name, String[] cols) {
         StringJoiner joiner = new StringJoiner(", ");
         for (int i = 0; i < cols.length-1; i++) {
             joiner.add(cols[i]);
         }
-
         String colSentence = joiner.toString() + " and " + cols[cols.length-1];
         System.out.printf("You are trying to create a table named %s with the columns %s\n", name, colSentence);
+
+        List columnList = new ArrayList<Column>();
+        Pattern nameType = Pattern.compile("(.+)(//s+)(.+)");
+        for (int i = 0; i < cols.length-1; i++) {
+            Matcher m1 = nameType.matcher(cols[i]);
+            columnList.add(new Column(m1.group(1), m1.group(3)));
+        }
+        currentDatabase.createTable(name, columnList);
         return "";
     }
 

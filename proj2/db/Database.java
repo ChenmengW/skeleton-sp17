@@ -1,19 +1,23 @@
 package db;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Database {
-    Table[] tables;
+    HashMap<String,Table> tables;
+    Parse parse = new Parse(this);
 
     public Database() {
         // YOUR CODE HERE
     }
 
     public String transact(String query) {
-        return Parse.eval(query);
+        return parse.eval(query);
     }
 
     public void createTable (String name, List columns){
-        CreateTable.conduct(name, columns);
+        Table newTable = CreateTable.conduct(name, columns);
+        tables.put(newTable.name, newTable);
         /*Table newTable = new Table (name, rows);
         add to the list*/
     }
