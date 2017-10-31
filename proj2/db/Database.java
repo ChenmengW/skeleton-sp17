@@ -38,6 +38,10 @@ public class Database {
         /*write the table*/
         dropTable.conduct(name);
     }
+
+    public Table getTable (String name){
+        return tables.get(name);
+    }
 }
 
 

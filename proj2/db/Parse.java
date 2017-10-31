@@ -136,8 +136,10 @@ public class Parse {
         return "";
     }
 
-    private static String printTable(String name) {
+    private String printTable(String name) {
         System.out.printf("You are trying to print the table named %s\n", name);
+        Table table = currentDatabase.getTable(name);
+        System.out.println(PrintTable.conduct(table));
         return "";
     }
 
