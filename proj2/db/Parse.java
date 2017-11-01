@@ -92,10 +92,12 @@ public class Parse {
         System.out.printf("You are trying to create a table named %s with the columns %s\n", name, colSentence);
 
         List columnList = new ArrayList<Column>();
-        Pattern nameType = Pattern.compile("\b(.+)(\\s+)(.+)\b");
+        Pattern nameType = Pattern.compile("(.+)(\\s+)(.+)");
         for (int i = 0; i < cols.length; i++) {
-            Matcher m1 = nameType.matcher(cols[i].trim());
-            columnList.add(new Column(m1.group(1), m1.group(3)));
+            Matcher m1 = nameType.matcher(cols[i]);
+            if (m1.find()) {
+                columnList.add(new Column(m1.group(1), m1.group(3)));
+            }
         }
         currentDatabase.createTable(name, columnList);
         return "";
@@ -134,8 +136,10 @@ public class Parse {
         return "";
     }
 
-    private static String printTable(String name) {
+    private String printTable(String name) {
         System.out.printf("You are trying to print the table named %s\n", name);
+        Table table = currentDatabase.getTable(name);
+        System.out.println(PrintTable.conduct(table));
         return "";
     }
 

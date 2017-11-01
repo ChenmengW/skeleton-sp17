@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database {
-    HashMap<String,Table> tables;
+    HashMap<String,Table> tables = new HashMap<String,Table>();
     Parse parse = new Parse(this);
 
     public Database() {
@@ -37,6 +37,10 @@ public class Database {
     public void dropTable (String name){
         /*write the table*/
         dropTable.conduct(name);
+    }
+
+    public Table getTable (String name){
+        return tables.get(name);
     }
 }
 
