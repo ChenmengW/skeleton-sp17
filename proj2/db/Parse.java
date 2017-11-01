@@ -92,9 +92,9 @@ public class Parse {
         System.out.printf("You are trying to create a table named %s with the columns %s\n", name, colSentence);
 
         List columnList = new ArrayList<Column>();
-        Pattern nameType = Pattern.compile("(.+)(//s+)(.+)");
-        for (int i = 0; i < cols.length-1; i++) {
-            Matcher m1 = nameType.matcher(cols[i]);
+        Pattern nameType = Pattern.compile("\b(.+)(\\s+)(.+)\b");
+        for (int i = 0; i < cols.length; i++) {
+            Matcher m1 = nameType.matcher(cols[i].trim());
             columnList.add(new Column(m1.group(1), m1.group(3)));
         }
         currentDatabase.createTable(name, columnList);
