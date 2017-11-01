@@ -1,14 +1,14 @@
 package db;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class Column {
     String name;
     String type;
     int length;
-    List<String> elements = new ArrayList<String>();
+    LinkedHashMap<String,Row> elements = new LinkedHashMap<String,Row>();
 
     public Column(String name, String type){
         this.name = name;
@@ -18,15 +18,15 @@ public class Column {
 
     public String toString(){
         String result = name + " " + type;
-        for (String e:elements){
-            result = "\n" + e;
+        for (Map.Entry<String,String> entry:elements.entrySet()){
+            result = "\n" + entry.getKey();
         }
         return result;
     }
 
-    public void add(String s){
+    public void add(String element, Row row){
         length += 1;
-        elements.add(s);
+        elements.put(element,row);
     }
 
     public String get(int i){

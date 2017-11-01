@@ -7,13 +7,13 @@ import java.util.HashMap;
 public class Table {
     String name;
     List<Column> columns = new ArrayList<Column>();
-    HashMap <String, List> chm = new HashMap<String, List>();
+    HashMap <String, Column> chm = new HashMap<String, Column>();
     List<Row> rows = new ArrayList<Row>();
 
-    private HashMap<String, List> makeHashMap (){
-        HashMap <String, List> chm = new HashMap<String, List>();
+    private HashMap<String, Column> makeHashMap (){
+        HashMap <String, Column> chm = new HashMap<String, Column>();
         for(Column column : columns){
-            chm.put(column.name, column.elements);
+            chm.put(column.name, column);
         }
         return chm;
     }
@@ -25,12 +25,12 @@ public class Table {
             Row newRow = new Row();
             if (j == 0){
                 for (Column c : columns) {
-                    newRow.add(c.name + " " + c.type );
+                    newRow.add(c.name + " " + c.type,c.name + " " + c.type );
                 }
             }
             else {
                 for (Column c : columns) {
-                    newRow.add("'" + c.get(j - 1) + "'" + ",");
+                    newRow.add(c.name + " " + c.type,"'" + c.get(j - 1) + "'" + ",");
                 }
             }
             j += 1;
@@ -77,4 +77,19 @@ public class Table {
         result = result.substring(0, result.length() - 1);
         return result;
     }
+
+    public Table replicate(){
+        Table result = new Table(name, columns);
+        return result;
+    }
+
+    Column getColumn(String columnName){
+        return chm.get(columnName);
+    }
+
+    Row findRow(Column column, String rowElement){
+        String rowName = column.elements.get(rowElement);
+        return
+    }
+
 }
