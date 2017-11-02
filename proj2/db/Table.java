@@ -3,6 +3,7 @@ package db;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Table {
     String name;
@@ -26,12 +27,12 @@ public class Table {
             Row newRow = new Row();
             if (j == 0){
                 for (Column c : columns) {
-                    newRow.add(c.name + " " + c.type,c.name + " " + c.type );
+                    newRow.add(c,c.name + " " + c.type );
                 }
             }
             else {
                 for (Column c : columns) {
-                    newRow.add(c.name + " " + c.type,"'" + c.getByIndex(j - 1) + "'" + ",");
+                    newRow.add(c,"'" + c.getByIndex(j - 1) + "'" + ",");
                 }
             }
             j += 1;
@@ -98,24 +99,10 @@ public class Table {
         this.chm = makeHashMap();
     }
 
-    List<Column> makeColumns(){
+    List<Column> makeColumns() {
         List<Column> result = new ArrayList<Column>();
-        int i = rows.get(0).length;
-        for (int j = 0; j < i +1 ; j ++){
-            if (j == 0){
-                for (Column c : columns) {
-                    Row newColumn = new Column();
-                    /* here */
-                    newColumn.add(c.name + " " + c.type,c.name + " " + c.type );
-                }
-            }
-            else {
-                for (Column c : columns) {
-                    newColumn.add(c.name + " " + c.type,"'" + c.getByIndex(j - 1) + "'" + ",");
-                }
-            }
-            j += 1;
-            result.add(newColumn);
+        for (Map.Entry<String,Column> entry:rows.get(0).elements.entrySet()){
+            result.add(entry.getValue());
         }
         return result;
     }

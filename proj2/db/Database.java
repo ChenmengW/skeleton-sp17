@@ -23,7 +23,7 @@ public class Database {
     }
 
     public void loadTable (String name){
-        LoadTable.conduct(name);
+        LoadTable.conduct(this,name);
         /*read the file
         Table newTable = new Table (name, rows);*/
 

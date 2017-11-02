@@ -2,7 +2,7 @@ package db;
 import java.util.ArrayList;
 import java.util.List;
 public class Join {
-    String commonColumnName;
+    Column commonColumn;
     public Table joinTables(List<Table> tables){
     Table result = joinTwoTables(tables.get(0), tables.get(1));
         for (int i = 2; i < tables.size() ; i ++ ){
@@ -14,12 +14,11 @@ public class Join {
         Table resultTable = table1.replicate();
         if (haveColumnInCommon(table1.columns,table2.columns)){
             for (Row row:resultTable.rows){
-                String matchID= row.findElement(commonColumnName);
-                Column columnToSearch = table2.getColumn(commonColumnName);
+                String matchID= row.findElement(commonColumn);
+                Column columnToSearch = table2.getColumn(commonColumn.name);
                 Row rowToAppend = table2.findRow(columnToSearch,matchID);
                 row.append(rowToAppend);
                 resultTable.updateFromRow();
-                return resultTable;
             }
         }
         else {
@@ -30,15 +29,15 @@ public class Join {
                 }
             }
             resultTable.updateFromRow();
-            return resultTable;
         }
+        return resultTable;
     }
 
     private boolean haveColumnInCommon(List<Column> columns1, List<Column> columns2){
         for (Column column1:columns1){
             for (Column column2:columns2){
                 if (column1.name.equals(column2.name)){
-                    commonColumnName = column1.name;
+                    commonColumn = column1;
                     return true;
                 }
             }
