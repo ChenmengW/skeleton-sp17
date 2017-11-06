@@ -9,21 +9,21 @@ public class Table {
     private List <String> rows = new ArrayList();
 
     /* Row first */
-    private LinkedHashMap<String,LinkedHashMap<String,String>> data = new LinkedHashMap();
-    /*
-    private HashMap<String,String> columnType = new HashMap();
-    */
+    LinkedHashMap<String,LinkedHashMap<String,String>> data = new LinkedHashMap();
 
-    public Table (){}
+    HashMap<String,String> columnType = new HashMap();
 
-    public Table (String name, List columns, HashMap columnType){
+
+    public Table (String name, List columns){
         this.name = name;
-
         this.columns = columns;
+    }
 
-        /*
+    public Table (String name, List columns, HashMap<String,String> columnType){
+        this.name = name;
+        this.columns = columns;
         this.columnType = columnType;
-        */
+
     }
 
     public String insertIntoTable (List<String> rowData) {
