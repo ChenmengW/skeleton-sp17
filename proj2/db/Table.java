@@ -4,12 +4,13 @@ import java.util.*;
 
 public class Table {
     private String name;
+    private int nextRowIndex = 0;
 
     List <String> columns = new ArrayList();
     private List <String> rows = new ArrayList();
 
     /* Row first */
-    LinkedHashMap<String,LinkedHashMap<String,String>> data = new LinkedHashMap();
+    LinkedHashMap<Integer,LinkedHashMap<String,String>> data = new LinkedHashMap();
 
     HashMap<String,String> columnType = new HashMap();
 
@@ -27,20 +28,24 @@ public class Table {
     }
 
     public String insertIntoTable (List<String> rowData) {
-        String firstRowData = rowData.get(0);
         for (int i = 0; i < getColumnNumber(); i ++) {
+            if (i == 0){
             LinkedHashMap<String, String> tempElement = new LinkedHashMap();
             tempElement.put(getColumnName(i), rowData.get(i));
-            data.put(firstRowData, tempElement);
+            data.put(nextRowIndex, tempElement);}
+            else {
+                data.get(nextRowIndex).put(getColumnName(i), rowData.get(i));
+            }
         }
+        nextRowIndex += 1;
         return "";
     }
 
     public String printTable () {
-        for (Map.Entry<String,LinkedHashMap<String, String>> entry: data.entrySet()){
+        for (Map.Entry<Integer,LinkedHashMap<String, String>> entry: data.entrySet()){
             String row ="";
             for (Map.Entry<String,String> entry2: entry.getValue().entrySet()) {
-                row +=  entry.getKey() + ",";
+                row =row +  entry2.getValue() + ",";
             }
             row = row.substring(0,row.length() - 1);
             System.out.println(row);
